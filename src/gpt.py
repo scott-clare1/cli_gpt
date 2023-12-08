@@ -66,8 +66,7 @@ class GPT:
 		self.page.fill(f"textarea#prompt-textarea", prompt)
 		self.page.click('[data-testid="send-button"]')
 		self.page.wait_for_load_state('networkidle')
-		import time
-		time.sleep(5)
+		self.page.wait_for_selector('[data-testid="send-button"]', timeout=20000)
 		elements = self.page.query_selector_all(f'[data-testid="conversation-turn-{self.conversation_turn}"]')
 		for element in elements:
 			html_content = self.page.evaluate('(element) => element.outerHTML', element)

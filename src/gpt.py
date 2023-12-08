@@ -52,16 +52,11 @@ class GPT:
 		self.connect(headless=True)
 		self.add_cookies()
 		self.page.goto("https://chat.openai.com/")
-#		try:
-#			page.wait_for_selector('#prompt-textarea')
-#		except Exception as e:
-#			print("Page no loaded properly - are you sure you signed in correctly before processing Enter?")
-#			self.close()
-#			os.remove(self.cookies_path)
+		self.page.wait_for_load_state('networkidle')
+	
 	@staticmethod
 	def _convert_to_markdown(html):
 		return converter.handle(html)		
-
 
 	@staticmethod
 	def save_markdown(html):
